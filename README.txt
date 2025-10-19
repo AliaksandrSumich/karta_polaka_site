@@ -7,7 +7,7 @@ Files:
 - index.html         (main single-page site)
 - css/style.css
 - js/script.js
-- assets/logo.svg
+- assets/logo.jpg
 - assets/sample1.jpg
 - assets/sample2.jpg
 - robots.txt
