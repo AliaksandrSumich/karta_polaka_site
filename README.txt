@@ -1,6 +1,8 @@
 pytania_karta_polaka_landing
 ===========================
 
+Live: https://learnpolish.click/
+
 Files:
 - index.html         (main single-page site)
 - css/style.css
@@ -8,13 +10,16 @@ Files:
 - assets/logo.svg
 - assets/sample1.jpg
 - assets/sample2.jpg
+- robots.txt
+- sitemap.xml
 
 Notes:
-- Update the /assets images with real pictures before publishing.
-- Update og:url and canonical link in index.html to your real domain.
-- The site is static and does not call any API (per requirement).
-- Tests / sample questions are shown in Polish only.
+- All meta tags (title/description/OG/canonical) are set to learnpolish.click.
+- UI supports RU and PL only; content switches client-side.
+- Quiz pulls 20 losowych pytań z pliku CSV: "Вопросы на карту поляка.csv".
+- Obrazy do pytań pobierane są z folderu images/ zgodnie z kolumną CSV.
+- Brak backendu; wszystko jest statyczne.
 
 Quick deploy:
-- GitHub Pages: push this folder to a repo and enable Pages (branch main).
-- Vercel / Netlify: connect the repo and deploy as a static site.
+- GitHub Pages / Vercel / Netlify: deploy as static site root.
+- Remember to upload the images/ folder with all quiz images.

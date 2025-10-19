@@ -1,6 +1,8 @@
 (function(){
   const ruBtn = document.getElementById('lang-ru');
   const plBtn = document.getElementById('lang-pl');
+  const switchRu = document.getElementById('switch-ru');
+  const switchPl = document.getElementById('switch-pl');
   let currentLang = 'ru';
 
   function translateDOM(lang){
@@ -23,8 +25,11 @@
       if (startBtn) translateDOM(currentLang);
     }
   }
-  ruBtn && ruBtn.addEventListener('click', ()=>setLang('ru'));
-  plBtn && plBtn.addEventListener('click', ()=>setLang('pl'));
+  ruBtn && ruBtn.addEventListener('click', (e)=>{ e.preventDefault(); setLang('ru'); });
+  plBtn && plBtn.addEventListener('click', (e)=>{ e.preventDefault(); setLang('pl'); });
+  switchRu && switchRu.addEventListener('click', (e)=>{ e.preventDefault(); setLang('ru'); });
+  switchPl && switchPl.addEventListener('click', (e)=>{ e.preventDefault(); setLang('pl'); });
+
   const savedLang = (function(){ try{ return localStorage.getItem('lang'); }catch(e){ return null; }})();
   if (savedLang) setLang(savedLang); else translateDOM(currentLang);
 
@@ -189,29 +194,29 @@
     const q = quizState.questions[i];
     const percent = Math.round((i)/total*100);
 
-    const mediaHTML = q.img ? `<div class="media"><img src="${q.img}" alt="${q.q}" loading="lazy" decoding="async" onerror="this.style.display='none'"/></div>` : '';
+    const mediaHTML = q.img ? `<div class=\"media\"><img src=\"${q.img}\" alt=\"${q.q}\" loading=\"lazy\" decoding=\"async\" onerror=\"this.style.display='none'\"/></div>` : '';
     const optsHTML = q.options.map((opt, k)=>{
       const id = `opt_${i}_${k}`;
-      return `<label class="option"><input type="radio" name="q${i}" value="${opt.replace(/"/g,'&quot;')}" id="${id}"/> <span>${opt}</span></label>`;
+      return `<label class=\"option\"><input type=\"radio\" name=\"q${i}\" value=\"${opt.replace(/\\"/g,'&quot;')}\" id=\"${id}\"/> <span>${opt}</span></label>`;
     }).join('');
 
     quizContainer.innerHTML = `
-      <div class="quiz-card">
-        <div class="quiz-head">
-          <div class="quiz-muted">${t.progress(i+1, total)}</div>
-          <div class="quiz-muted">${total} pytań</div>
+      <div class=\"quiz-card\">
+        <div class=\"quiz-head\">
+          <div class=\"quiz-muted\">${t.progress(i+1, total)}</div>
+          <div class=\"quiz-muted\">${total} pytań</div>
         </div>
-        <div class="quiz-progress"><span style="width:${percent}%"></span></div>
-        <div class="quiz-body">
-          <div class="text">
+        <div class=\"quiz-progress\"><span style=\"width:${percent}%\"></span></div>
+        <div class=\"quiz-body\">
+          <div class=\"text\">
             <h3>${q.q}</h3>
-            <div class="options" id="options">${optsHTML}</div>
-            <div class="quiz-muted" id="hint">${t.select}</div>
+            <div class=\"options\" id=\"options\">${optsHTML}</div>
+            <div class=\"quiz-muted\" id=\"hint\">${t.select}</div>
           </div>
           ${mediaHTML}
         </div>
-        <div class="quiz-actions">
-          <button class="btn" id="next-btn">${i === total-1 ? t.finish : t.next}</button>
+        <div class=\"quiz-actions\">
+          <button class=\"btn\" id=\"next-btn\">${i === total-1 ? t.finish : t.next}</button>
         </div>
       </div>
     `;
@@ -246,13 +251,13 @@
     const percent = total ? Math.round((c/total)*100) : 0;
     const passed = percent >= 80;
     quizContainer.innerHTML = `
-      <div class="result">
+      <div class=\"result\">
         <h3>${t.resultTitle}</h3>
-        <p class="score">${t.score(c,total)} · ${t.percent(percent)}</p>
-        <p class="${passed ? 'pass' : 'fail'}">${passed ? t.pass : t.fail}</p>
-        <div class="quiz-actions">
-          <button class="btn" id="retry-btn">${t.retry}</button>
-          <a class="btn primary" href="https://t.me/pytania_KartaPolaka_bot" target="_blank" rel="noopener noreferrer">${t.openBot}</a>
+        <p class=\"score\">${t.score(c,total)} · ${t.percent(percent)}</p>
+        <p class=\"${passed ? 'pass' : 'fail'}\">${passed ? t.pass : t.fail}</p>
+        <div class=\"quiz-actions\">
+          <button class=\"btn\" id=\"retry-btn\">${t.retry}</button>
+          <a class=\"btn primary\" href=\"https://t.me/pytania_KartaPolaka_bot\" target=\"_blank\" rel=\"noopener noreferrer\">${t.openBot}</a>
         </div>
       </div>
     `;
